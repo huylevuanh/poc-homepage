@@ -12,8 +12,23 @@
       <span
         v-bind:style="{ fontSize: 64 + 'px', opacity: 0 }"
         class="text-intro-1"
-        >Te ayudamos a crecer.</span
       >
+        Te ayudamos a crecer.
+      </span>
+      <span
+        v-bind:style="{ fontSize: 64 + 'px', opacity: 0 }"
+        class="text-intro-2"
+      >
+        Con todo tipo de<br />
+        soluciones tecnológicas.
+      </span>
+      <span
+        v-bind:style="{ fontSize: 64 + 'px', opacity: 0 }"
+        class="text-intro-3"
+      >
+        Para todo tipo de<br />
+        negocios.
+      </span>
     </div>
   </div>
 </template>
@@ -32,10 +47,6 @@ export default {
 
   methods: {
     scrollAnimation() {
-      const bubbleRound = document.querySelector("#form02");
-      const bubbleStep1 = document.querySelector("#form01");
-      const bubbleStep22 = document.querySelector("#form04");
-
       ScrollSmoother.create({
         smooth: 2,
         effects: true,
@@ -45,7 +56,7 @@ export default {
           scrollTrigger: {
             trigger: ".home-container",
             start: "bottom bottom",
-            end: `${window.innerHeight * 3}`,
+            end: `${window.innerHeight * 5}`,
             pin: true,
             scrub: 1,
             anticipatePin: true,
@@ -78,14 +89,6 @@ export default {
         .to(
           ".text-intro-1",
           {
-            fontSize: 80,
-            opacity: 0.5,
-          },
-          "<"
-        )
-        .to(
-          ".text-intro-1",
-          {
             fontSize: 96,
             opacity: 1,
           },
@@ -96,12 +99,47 @@ export default {
           duration: 1,
         })
 
-        .to("#form01", {
+        .to(".text-intro-1", {
+          opacity: 0,
+          display: "none",
+        })
+        .to(".text-intro-2", {
+          opacity: 1,
+          display: "block",
+        })
+        .to(".text-intro-2", {
+          opacity: 0,
+          display: "none",
+        })
+
+        .to(".bubble-step1-container", {
           opacity: 0,
         })
         .to(".bubble-step2-container", {
           opacity: 1,
-        });
+        })
+        .to(
+          ".text-intro-3",
+          {
+            opacity: 0.5,
+            display: "block",
+            duration: 1,
+          },
+          "<"
+        )
+        .to(".text-intro-3", {
+          opacity: 1,
+        })
+        .to(".bubble-step2-container", {
+          opacity: 0,
+        })
+        .to(
+          ".text-intro-3",
+          {
+            opacity: 0,
+          },
+          "<"
+        );
     },
   },
 };
@@ -147,6 +185,12 @@ export default {
   font-size: 30px;
   text-align: center;
   margin-top: 20px;
+}
+
+.text-intro-2,
+.text-intro-3 {
+  display: none;
+  text-align: center;
 }
 
 #form02 {

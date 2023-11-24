@@ -99,6 +99,7 @@
       stroke="url(#paint0_radial_145_629)"
       style="mix-blend-mode: overlay"
     />
+
     <defs>
       <filter
         id="filter0_ii_145_629"
@@ -165,103 +166,51 @@
         <stop offset="1" stop-color="white" stop-opacity="0" />
       </radialGradient>
     </defs>
-
-    <g filter="url(#filter0_ii_145_753)">
-      <circle
-        cx="432"
-        cy="432"
-        r="432"
-        fill="black"
-        fill-opacity="0.48"
-        id="form03"
-      />
-    </g>
-    <circle
-      cx="432"
-      cy="432"
-      r="431.5"
-      stroke="url(#paint0_radial_145_753)"
-      style="mix-blend-mode: overlay"
-    />
-    <defs>
-      <filter
-        id="filter0_ii_145_753"
-        x="-10"
-        y="-40"
-        width="934"
-        height="914"
-        filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
-      >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          result="shape"
-        />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-          result="hardAlpha"
-        />
-        <feMorphology
-          radius="20"
-          operator="erode"
-          in="SourceAlpha"
-          result="effect1_innerShadow_145_753"
-        />
-        <feOffset dx="60" dy="-40" />
-        <feGaussianBlur stdDeviation="48" />
-        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 1 0 0 0 0 0.48 0 0 0 0 0 0 0 0 0.8 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="shape"
-          result="effect1_innerShadow_145_753"
-        />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-          result="hardAlpha"
-        />
-        <feOffset dx="-10" dy="10" />
-        <feGaussianBlur stdDeviation="30" />
-        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 0 0 0.64 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="effect1_innerShadow_145_753"
-          result="effect2_innerShadow_145_753"
-        />
-      </filter>
-      <radialGradient
-        id="paint0_radial_145_753"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(133.202 740.72) rotate(-50.0865) scale(908.437 864.908)"
-      >
-        <stop stop-color="white" stop-opacity="0.74" />
-        <stop offset="1" stop-color="white" stop-opacity="0" />
-      </radialGradient>
-    </defs>
   </svg>
 </template>
+
+<script>
+import { MorphSVGPlugin } from "gsap-trial/MorphSVGPlugin";
+import { gsap } from "gsap-trial";
+
+gsap.registerPlugin(MorphSVGPlugin);
+
+export default {
+  mounted: function () {
+    this.distort();
+  },
+  methods: {
+    distort() {
+      gsap.to("#form01", {
+        morphSVG: "#form02",
+        ease: "sine.easeInOut",
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+      });
+    },
+  },
+};
+</script>
 
 <style>
 svg {
   outline: none;
   border: unset;
   stroke-width: 0;
+  background: transparent;
+}
+
+@keyframes distorted {
+  from {
+    d: path(
+      "M701.236 754.636C623.592 785.414 553.754 833.668 470.237 834.557C382.562 835.491 297.811 808.25 224.794 759.709C145.706 707.132 77.7743 638.173 42.307 550.075C3.50232 453.688 -16.7687 344.721 18.3546 246.932C53.8963 147.978 136.039 69.5939 231.054 24.5713C319.309 -17.2474 418.901 8.75362 516.538 10.8707C618.692 13.0857 725.217 -12.6358 814.406 37.2203C912.033 91.794 986.842 185.244 1019.72 292.148C1053.37 401.57 1060.51 532.026 995.579 626.313C933.351 716.677 803.233 714.205 701.236 754.636Z"
+    );
+  }
+  to {
+    d: path(
+      "M701.236 754.636C623.592 805.414 553.754 833.668 475.237 834.557C382.562 835.491 297.811 808.25 224.794 759.709C145.706 707.132 77.7743 638.173 42.307 550.075C3.50232 453.688 -16.7687 344.721 18.3546 246.932C53.8963 147.978 136.039 69.5939 231.054 24.5713C319.309 -17.2474 418.901 8.75362 516.538 10.8707C618.692 13.0857 725.217 -12.6358 814.406 37.2203C912.033 91.794 866.842 185.244 1019.72 272.148C1053.37 301.57 1030.51 552.026 985.579 626.313C933.351 716.677 803.233 714.205 701.236 754.636Z"
+    );
+  }
 }
 </style>

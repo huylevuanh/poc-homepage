@@ -1,15 +1,29 @@
 <template>
   <div class="home-container">
-    <BubbleStep1 class="bubble-container" />
+    <BubbleStep1 class="bubble-step1-container" />
+    <BubbleStep2 class="bubble-step2-container" />
+
+    <div>
+      <div class="title-container">
+        <img class="buho-logo" src="~/assets/bg/logo_buho.png" alt="logo" />
+        <h6 class="pos-title">Desliza para Descubrir</h6>
+      </div>
+
+      <span
+        v-bind:style="{ fontSize: 64 + 'px', opacity: 0 }"
+        class="text-intro-1"
+        >Te ayudamos a crecer.</span
+      >
+    </div>
   </div>
 </template>
 
 <script>
 import { MorphSVGPlugin } from "gsap-trial/MorphSVGPlugin";
 import { gsap } from "gsap-trial";
-
+import { ScrollSmoother } from "gsap-trial/ScrollSmoother";
 import { ScrollTrigger } from "gsap-trial/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin);
+gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin, ScrollSmoother);
 
 export default {
   mounted: function () {
@@ -20,66 +34,73 @@ export default {
     scrollAnimation() {
       const bubbleRound = document.querySelector("#form02");
       const bubbleStep1 = document.querySelector("#form01");
+      const bubbleStep22 = document.querySelector("#form04");
 
-      const scaleBubbleStep1 = gsap.to(".bubble-container", {
-        scale: "+=0.05",
-        yoyo: true,
-        ease: "power1.inOut",
-        repeat: -1,
-        duration: 1,
+      ScrollSmoother.create({
+        smooth: 2,
+        effects: true,
       });
-      scaleBubbleStep1.resume();
       gsap
         .timeline({
           scrollTrigger: {
             trigger: ".home-container",
             start: "bottom bottom",
-            end: `${window.innerHeight * 2}`,
-            markers: true,
+            end: `${window.innerHeight * 3}`,
             pin: true,
             scrub: 1,
-            // onScrubComplete: () => scaleBubbleStep1.resume(),
-            // onUpdate: () => scaleBubbleStep1.pause(),
+            anticipatePin: true,
           },
         })
         .to(
-          "#form01",
+          ".title-container",
           {
-            morphSVG: bubbleRound,
-            ease: "sine.easeInOut",
-            duration: 0.5,
+            transform: "scale(1.1)",
           },
           "<"
         )
-        .to(".bubble-container", {
-          transform: "translate(100%, 190px) rotate(10deg)",
-        })
-        .to("#form01", {
-          morphSVG: bubbleStep1,
-          ease: "sine.easeInOut",
-          duration: 0.5,
-        })
-        .to(".bubble-container", {
-          transform: "translate(100%, 190px) rotate(0deg)",
-          duration: 1,
-        })
-        .to("#form01", {
-          opacity: 0,
+        .to(".title-container", {
+          transform: "scale(1.2)",
         })
         .to(
-          "#form03",
+          ".bubble-step1-container",
           {
-            opacity: 1,
-            duration: 0.5,
-            ease: "easeInOut",
+            transform: "translate(20%, -40%) rotate(10deg)",
           },
-          "<+=0.5"
+          "<"
         )
-        .to("#form03", {
+        .to(".title-container", {
           opacity: 0,
-          translateY: "5px",
-          duration: 0.5,
-          ease: "easeInOut",
+          display: "none",
+        })
+        .to(".text-intro-1", {
+          opacity: 0.5,
+        })
+        .to(
+          ".text-intro-1",
+          {
+            fontSize: 80,
+            opacity: 0.5,
+          },
+          "<"
+        )
+        .to(
+          ".text-intro-1",
+          {
+            fontSize: 96,
+            opacity: 1,
+          },
+          "<"
+        )
+        .to(".bubble-step1-container", {
+          transform: "translate(-50%, -40%) rotate(0deg)",
+          duration: 1,
+        })
+
+        .to("#form01", {
+          opacity: 0,
+        })
+        .to(".bubble-step2-container", {
+          opacity: 1,
         });
     },
   },
@@ -89,16 +110,43 @@ export default {
 <style>
 .home-container {
   position: relative;
+  width: 100%;
   height: 100vh;
-  background-image: url("https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-image: url("assets/bg/bg.png");
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  will-change: transform;
 }
 
-.bubble-container {
+.bubble-step1-container,
+.bubble-step2-container {
   position: absolute;
-  transform: translate(200%, -390px);
+  top: 50%;
+  left: 50%;
+}
+
+.bubble-step1-container {
+  transform: translate(60%, -90%);
+}
+
+.bubble-step2-container {
+  transform: translate(-35%, -40%);
+}
+
+.pre-title {
+  font-size: 60px;
+  margin: 0;
+  text-align: center;
+}
+
+.pos-title {
+  font-size: 30px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 #form02 {
@@ -108,7 +156,11 @@ export default {
   stroke: "transparent";
 }
 
-#form03 {
+.bubble-step2-container {
   opacity: 0;
+}
+
+* {
+  color: white;
 }
 </style>

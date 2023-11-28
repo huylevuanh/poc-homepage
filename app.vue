@@ -303,7 +303,7 @@ export default {
 }
 
 .bubble-step6-container {
-  transform: translate(-50%, -50%);
+  transform: translate(-40%, -50%);
   opacity: 0;
 }
 

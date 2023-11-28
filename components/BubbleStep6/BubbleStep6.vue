@@ -148,7 +148,7 @@ export default {
       });
       gsap.to(".bubble-3", {
         transform: "translate(0px, 30px)",
-        ease: "sine.easeInOut",
+        ease: "power1.easeInOut",
         duration: 1,
         repeat: -1,
         yoyo: true,
@@ -194,11 +194,11 @@ export default {
 }
 
 .bubble-2 {
-  top: 10%;
-  left: 35%;
+  top: 15%;
+  left: 28%;
 }
 
-.bubble-1 > .bubble {
+.bubble-2 > .bubble {
   width: 521px;
   height: 521px;
 }
@@ -217,8 +217,8 @@ export default {
 }
 
 .bubble-3 {
-  top: 55%;
-  left: 30%;
+  top: 48%;
+  left: 25%;
 }
 
 .bubble-3 > .text-description {

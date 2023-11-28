@@ -200,4 +200,8 @@ svg {
   stroke-width: 0;
   background: transparent;
 }
+
+#form02 {
+  visibility: hidden;
+}
 </style>

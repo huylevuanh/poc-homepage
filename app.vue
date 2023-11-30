@@ -117,6 +117,7 @@ export default {
                 scrub: 1,
                 anticipatePin: true,
                 invalidateOnRefresh: true,
+                ease: "expo.out",
               },
             })
 
@@ -138,7 +139,7 @@ export default {
               {
                 transform: "translate(20%, -40%) rotate(10deg)",
               },
-              "<"
+              "<-0.5"
             )
             .to(".title-container", {
               opacity: 0,
@@ -229,16 +230,10 @@ export default {
               { opacity: 0 },
               { opacity: 0.2 }
             )
-            .to(".bubble-step3-container", { scale: 1.3 })
-            .to(
-              ".text-intro-2 > span:nth-child(1)",
-              { opacity: 0.5, scale: isDesktop ? "+=1" : "+=0.33" },
-              "<"
-            )
             .to(".bubble-step3-container", { scale: 2 })
             .to(
               ".text-intro-2 > span:nth-child(1)",
-              { opacity: 1, scale: isDesktop ? "+=1.5" : "+=0.25" },
+              { opacity: 1, scale: isDesktop ? "+=2" : "+=0.67" },
               "<"
             )
             .to(".bubble-step3-container", { opacity: 0 })

@@ -2,7 +2,7 @@
   <div class="contact-card">
     <div class="phone-email">
       <span>+503 7260 1693</span>
-      <span>hola@buhopay.com ↗</span>
+      <span>hola@buhopay.com↗</span>
     </div>
     <div class="card-footer">
       <span>
@@ -56,5 +56,49 @@
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .contact-card {
+    width: 343px;
+    height: 480px;
+    padding: 64px 0px;
+    margin: 0 16px;
+    border-radius: 16px;
+    transform: none;
+    position: unset;
+    justify-content: space-between;
+    top: unset;
+    left: unset;
+  }
+
+  .phone-email > span:first-child {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  .phone-email > span:last-child {
+    font-size: 32px;
+    line-height: 48px;
+  }
+
+  .phone-email {
+    margin: 0 8px;
+  }
+
+  .card-footer {
+    flex-direction: column;
+    gap: 24px;
+    margin: 0 8px;
+  }
+
+  .card-footer > span {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .social-container {
+    gap: 24px;
+  }
 }
 </style>

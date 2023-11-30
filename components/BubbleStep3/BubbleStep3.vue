@@ -5,6 +5,7 @@
     viewBox="0 0 220 220"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    class="bubble-step-3"
   >
     <g filter="url(#filter0_ii_145_763)">
       <circle cx="110" cy="110" r="110" fill="black" fill-opacity="0.48" />
@@ -85,3 +86,12 @@
     </defs>
   </svg>
 </template>
+
+<style>
+@media screen and (max-width: 768px) {
+  .bubble-step-3 {
+    height: 120px;
+    width: 120px;
+  }
+}
+</style>

@@ -5,6 +5,7 @@
     viewBox="0 0 864 864"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    class="bubble-step-2"
   >
     <g filter="url(#filter0_ii_1271_11435)">
       <path
@@ -169,5 +170,12 @@ svg {
 }
 #form03 {
   visibility: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .bubble-step-2 {
+    width: 320px;
+    height: 320px;
+  }
 }
 </style>

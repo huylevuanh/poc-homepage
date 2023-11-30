@@ -20,7 +20,18 @@
 
     <div>
       <div class="title-container">
-        <img class="buho-logo" src="~/assets/bg/logo_buho.png" alt="logo" />
+        <img
+          v-if="isMobile"
+          class="buho-logo-mobile"
+          src="~/assets/bg/logo_buho_mobile.png"
+          alt="logo"
+        />
+        <img
+          v-else
+          class="buho-logo"
+          src="~/assets/bg/logo_buho.png"
+          alt="logo"
+        />
         <h6 class="pos-title">Desliza para Descubrir</h6>
       </div>
     </div>
@@ -53,201 +64,229 @@ import { gsap } from "gsap-trial";
 import { ScrollSmoother } from "gsap-trial/ScrollSmoother";
 import { ScrollTrigger } from "gsap-trial/ScrollTrigger";
 import videoBg from "~/assets/bg/background.mp4";
-gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin, ScrollSmoother);
 
+if (typeof window !== "undefined") {
+  gsap.config({
+    trialWarn: false,
+  });
+  gsap.registerPlugin(ScrollTrigger, MorphSVGPlugin, ScrollSmoother);
+}
 export default {
   mounted: function () {
     this.scrollAnimation();
+    ScrollSmoother.create({
+      smooth: 2,
+      effects: true,
+      ease: "power1.easeInOut",
+      normalizeScroll: true,
+    });
   },
   data() {
-    return { video: videoBg };
+    return { video: videoBg, isMobile: window.innerWidth <= 768 };
   },
+  unmounted: function () {
+    ScrollSmoother.get().kill();
+  },
+
   methods: {
     scrollAnimation() {
-      ScrollSmoother.create({
-        smooth: 2,
-        effects: true,
-      });
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: ".home-container",
-            start: "bottom bottom",
-            end: `${window.innerHeight * 10}`,
-            pin: true,
-            scrub: 1,
-            anticipatePin: true,
-            invalidateOnRefresh: true,
-          },
-        })
+      const mm = gsap.matchMedia();
+      mm.add(
+        {
+          isDesktop: `(min-width: 769px)`,
+          isMobile: `(max-width: 768px)`,
+          reduceMotion: "(prefers-reduced-motion: reduce)",
+        },
+        (context) => {
+          const {
+            isDesktop,
+            isMobile: MMIsMobile,
+            reduceMotion,
+          } = context.conditions;
 
-        .to(
-          ".title-container",
-          {
-            transform: "scale(1.1)",
-          },
-          "<"
-        )
-        .to(".video-background", {
-          filter: "brightness(0.8)",
-        })
-        .to(".title-container", {
-          transform: "scale(1.2)",
-        })
-        .to(".video-background", {
-          filter: "brightness(0.7)",
-        })
-        .to(
-          ".bubble-step1-container",
-          {
-            transform: "translate(20%, -40%) rotate(10deg)",
-          },
-          "<"
-        )
-        .to(".title-container", {
-          opacity: 0,
-          display: "none",
-        })
-        .fromTo(
-          ".text-intro-1 > span:nth-child(1)",
-          { opacity: 0 },
-          { opacity: 0.2 }
-        )
-        .to(".text-intro-1 > span:nth-child(1)", {
-          fontSize: 96,
-          opacity: 1,
-        })
-        .to(
-          ".bubble-step1-container",
-          {
-            transform: "translate(-50%, -40%) rotate(0deg)",
-            duration: 1,
-          },
-          "<"
-        )
-        .to(".text-intro-1 > span:nth-child(1)", {
-          opacity: 0,
-          display: "none",
-          translateY: -20,
-        })
-        .to(".text-intro-1 > span:nth-child(2)", {
-          display: "block",
-          opacity: 1,
-          translateY: -20,
-        })
-        .to(".text-intro-1 > span:nth-child(2)", {
-          display: "none",
-          opacity: 0,
-        })
-        .to(".text-intro-1 > span:nth-child(3)", {
-          display: "block",
-          opacity: 1,
-          translateY: -20,
-          fontSize: 96,
-        })
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: ".home-container",
+                start: "bottom bottom",
+                end: () =>
+                  isDesktop
+                    ? `${window.innerHeight * 10}`
+                    : `${window.innerHeight * 14}`,
+                pin: true,
+                scrub: 1,
+                anticipatePin: true,
+                invalidateOnRefresh: true,
+              },
+            })
 
-        .to(".bubble-step1-container", {
-          opacity: 0,
-        })
-        .to(
-          ".bubble-step2-container",
-          {
-            opacity: 1,
-          },
-          "<"
-        )
+            .to(".video-background", {
+              filter: "brightness(0.8)",
+            })
+            .to(
+              ".title-container",
+              {
+                transform: "scale(1.2)",
+              },
+              "<"
+            )
+            .to(".video-background", {
+              filter: "brightness(0.7)",
+            })
+            .to(
+              ".bubble-step1-container",
+              {
+                transform: "translate(20%, -40%) rotate(10deg)",
+              },
+              "<"
+            )
+            .to(".title-container", {
+              opacity: 0,
+              display: "none",
+            })
+            .fromTo(
+              ".text-intro-1 > span:nth-child(1)",
+              { opacity: 0 },
+              { opacity: 0.2 }
+            )
+            .to(".text-intro-1 > span:nth-child(1)", {
+              fontSize: isDesktop ? 96 : 32,
+              opacity: 1,
+            })
+            .to(
+              ".bubble-step1-container",
+              {
+                transform: "translate(-50%, -40%) rotate(0deg)",
+                duration: 1,
+              },
+              "<"
+            )
+            .to(".text-intro-1 > span:nth-child(1)", {
+              opacity: 0,
+              display: "none",
+              translateY: -20,
+            })
+            .to(".text-intro-1 > span:nth-child(2)", {
+              display: "block",
+              opacity: 1,
+              translateY: -20,
+            })
+            .to(".text-intro-1 > span:nth-child(2)", {
+              display: "none",
+              opacity: 0,
+            })
+            .to(".text-intro-1 > span:nth-child(3)", {
+              display: "block",
+              opacity: 1,
+              translateY: -20,
+              fontSize: isDesktop ? 96 : 32,
+            })
 
-        .to(".video-background", {
-          filter: "brightness(0.6)",
-        })
-        .to(".bubble-step2-container", {
-          opacity: 0,
-        })
-        .to(
-          ".text-intro-1 > span:nth-child(3)",
-          {
-            opacity: 0,
-            display: "none",
-          },
-          "<"
-        )
-        .to(".mask-image", {
-          opacity: 1,
-        })
-        .to(
-          ".video-background",
-          {
-            filter: "brightness(0.3)",
-          },
-          "<"
-        )
-        .to(
-          ".bubble-step3-container",
-          {
-            opacity: 1,
-          },
-          "<"
-        )
-        .fromTo(
-          ".text-intro-2 > span:nth-child(1)",
-          { opacity: 0 },
-          { opacity: 0.2 }
-        )
-        .to(".bubble-step3-container", { scale: 1.3 })
-        .to(
-          ".text-intro-2 > span:nth-child(1)",
-          { opacity: 0.5, scale: "+=1" },
-          "<"
-        )
-        .to(".bubble-step3-container", { scale: 2 })
-        .to(
-          ".text-intro-2 > span:nth-child(1)",
-          { opacity: 1, scale: "+=1.5" },
-          "<"
-        )
-        .to(".bubble-step3-container", { opacity: 0 })
-        .to(".bubble-step4-container", { opacity: 1 }, "<")
-        .to(".text-intro-2 > span:nth-child(1)", {
-          opacity: 0,
-          display: "none",
-          translateY: -20,
-        })
-        .to(".text-intro-2 > span:nth-child(2)", {
-          display: "block",
-          opacity: 1,
-          translateY: -20,
-        })
-        .to(".bubble-step4-container", { opacity: 0 })
-        .to(".bubble-step5-container", { opacity: 1 }, "<")
-        .to(".text-intro-2 > span:nth-child(2)", {
-          display: "none",
-          opacity: 0,
-        })
-        .to(".text-intro-2 > span:nth-child(3)", {
-          display: "block",
-          opacity: 1,
-          translateY: -20,
-        })
-        .to(".bubble-step5-container", {
-          opacity: 0,
-        })
-        .to(
-          ".text-intro-2 > span:nth-child(3)",
-          {
-            opacity: 0,
-          },
-          "<"
-        )
-        .to(".bubble-step6-container", {
-          opacity: 1,
-        })
-        .to(".bubble-step6-container", {
-          duration: 0.5,
-          opacity: 0,
-        })
-        .to(".contact-card-container", {
-          opacity: 1,
-        });
+            .to(".bubble-step1-container", {
+              opacity: 0,
+            })
+            .to(
+              ".bubble-step2-container",
+              {
+                opacity: 1,
+              },
+              "<"
+            )
+
+            .to(".video-background", {
+              filter: "brightness(0.6)",
+            })
+            .to(".bubble-step2-container", {
+              opacity: 0,
+            })
+            .to(
+              ".text-intro-1 > span:nth-child(3)",
+              {
+                opacity: 0,
+                display: "none",
+              },
+              "<"
+            )
+            .to(".mask-image", {
+              opacity: 1,
+            })
+            .to(
+              ".video-background",
+              {
+                filter: "brightness(0.3)",
+              },
+              "<"
+            )
+            .to(
+              ".bubble-step3-container",
+              {
+                opacity: 1,
+              },
+              "<"
+            )
+            .fromTo(
+              ".text-intro-2 > span:nth-child(1)",
+              { opacity: 0 },
+              { opacity: 0.2 }
+            )
+            .to(".bubble-step3-container", { scale: 1.3 })
+            .to(
+              ".text-intro-2 > span:nth-child(1)",
+              { opacity: 0.5, scale: isDesktop ? "+=1" : "+=0.33" },
+              "<"
+            )
+            .to(".bubble-step3-container", { scale: 2 })
+            .to(
+              ".text-intro-2 > span:nth-child(1)",
+              { opacity: 1, scale: isDesktop ? "+=1.5" : "+=0.25" },
+              "<"
+            )
+            .to(".bubble-step3-container", { opacity: 0 })
+            .to(".bubble-step4-container", { opacity: 1 }, "<")
+            .to(".text-intro-2 > span:nth-child(1)", {
+              opacity: 0,
+              display: "none",
+              translateY: -20,
+            })
+            .to(".text-intro-2 > span:nth-child(2)", {
+              display: "block",
+              opacity: 1,
+              translateY: isDesktop ? -20 : 0,
+            })
+            .to(".bubble-step4-container", { opacity: 0 })
+            .to(".bubble-step5-container", { opacity: 1 }, "<")
+            .to(".text-intro-2 > span:nth-child(2)", {
+              display: "none",
+              opacity: 0,
+            })
+            .to(".text-intro-2 > span:nth-child(3)", {
+              display: "block",
+              opacity: 1,
+              translateY: isDesktop ? -20 : 0,
+            })
+            .to(".bubble-step5-container", {
+              opacity: 0,
+            })
+            .to(
+              ".text-intro-2 > span:nth-child(3)",
+              {
+                opacity: 0,
+              },
+              "<"
+            )
+            .to(".bubble-step6-container", {
+              opacity: 1,
+            })
+            .to(".bubble-step6-container", {
+              duration: 0.5,
+              opacity: 0,
+            })
+            .to(".contact-card-container", {
+              opacity: 1,
+              display: "flex",
+            });
+        }
+      );
     },
   },
 };
@@ -261,6 +300,7 @@ export default {
   align-items: center;
   will-change: transform;
   height: 100vh;
+  width: 100vw;
 }
 
 .video-background {
@@ -270,7 +310,6 @@ export default {
   height: 100vh;
   width: 100vw;
   object-fit: cover;
-
   filter: brightness(100%);
 }
 
@@ -362,5 +401,62 @@ export default {
 
 * {
   color: white;
+  font-weight: 400;
+}
+
+@media screen and (max-width: 768px) {
+  .title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .title-container > .pos-title {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  .text-intro-1,
+  .text-intro-2 {
+    width: 100%;
+  }
+
+  .text-intro-1 > span {
+    font-size: 32px;
+    opacity: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    letter-spacing: -0.35px;
+  }
+
+  .text-intro-1 > span:nth-child(2) {
+    display: none;
+    font-size: 32px;
+  }
+
+  .text-intro-1 > span:nth-child(3) {
+    display: none;
+    font-size: 32px;
+  }
+
+  .text-intro-2 > span {
+    font-size: 24px;
+    opacity: 0;
+  }
+
+  .text-intro-2 > span:nth-child(2),
+  .text-intro-2 > span:nth-child(3) {
+    display: none;
+    font-size: 40px;
+  }
+  .contact-card-container {
+    display: none;
+  }
+
+  body::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
 }
 </style>

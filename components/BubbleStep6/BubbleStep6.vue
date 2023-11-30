@@ -29,6 +29,7 @@
         viewBox="0 0 368 368"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        class="bubble"
       >
         <g filter="url(#filter0_ii_145_1112)">
           <circle cx="183" cy="183" r="183" fill="black" fill-opacity="0.48" />
@@ -131,6 +132,8 @@ export default {
   },
   methods: {
     distort() {
+      const mm = gsap.matchMedia();
+
       gsap.to(".bubble-1", {
         transform: "translate(-20px, -30px)",
         ease: "sine.easeInOut",
@@ -232,5 +235,44 @@ export default {
   align-items: center;
   text-align: center;
   font-size: 48px;
+}
+
+@media screen and (max-width: 768px) {
+  .step-6-container {
+    width: 100%;
+  }
+
+  .bubble-2 > .bubble {
+    width: 240px;
+    height: 240px;
+  }
+  .bubble-1 > .bubble {
+    width: 180px;
+    height: 180px;
+  }
+  .bubble-3 > .bubble {
+    width: 140px;
+    height: 140px;
+  }
+
+  .bubble-3 > .text-description,
+  .bubble-1 > .text-description,
+  .bubble-2 > .text-description {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .bubble-1 {
+    top: 50%;
+  }
+  .bubble-2 {
+    top: 25%;
+    left: 18%;
+  }
+
+  .bubble-3 {
+    top: 48%;
+    left: 45%;
+  }
 }
 </style>

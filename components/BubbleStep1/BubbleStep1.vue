@@ -1,10 +1,9 @@
 <template>
   <svg
-    width="1085"
-    height="1100"
     viewBox="0 0 1085 1000"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    class="bubble-step-1"
   >
     <g filter="url(#filter0_ii_145_521)">
       <path
@@ -194,7 +193,11 @@ export default {
 </script>
 
 <style>
-svg {
+/* width="1085"
+    height="1100" */
+.bubble-step-1 {
+  width: auto;
+  height: auto;
   outline: none;
   border: unset;
   stroke-width: 0;
@@ -203,5 +206,12 @@ svg {
 
 #form02 {
   visibility: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .bubble-step-1 {
+    width: 355px;
+    height: 315px;
+  }
 }
 </style>

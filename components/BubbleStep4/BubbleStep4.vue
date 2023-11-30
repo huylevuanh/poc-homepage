@@ -5,6 +5,7 @@
     viewBox="0 0 720 720"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    class="bubble-step-4"
   >
     <g filter="url(#filter0_ii_145_879)">
       <circle cx="360" cy="360" r="360" fill="black" fill-opacity="0.12" />
@@ -84,3 +85,12 @@
     </defs>
   </svg>
 </template>
+
+<style>
+@media screen and (max-width: 768px) {
+  .bubble-step-4 {
+    width: 300px;
+    height: 300px;
+  }
+}
+</style>

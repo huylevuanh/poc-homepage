@@ -335,6 +335,7 @@ export default {
 
 .contact-card-container {
   opacity: 0;
+  display: none;
 }
 
 .bubble-step1-container {

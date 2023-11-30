@@ -39,19 +39,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   width: 1504px;
+  margin: 60px;
   height: 682px;
   border: solid 2px transparent;
   border: 1px solid rgba(165, 162, 162, 0.495);
   padding: 80px;
 
   filter: brightness(120%);
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,

@@ -182,10 +182,11 @@ export default {
     distort() {
       gsap.to("#form01", {
         morphSVG: "#form02",
-        ease: "sine.easeInOut",
-        duration: 2,
+        ease: "power1.easeOut",
+        duration: 1,
         repeat: -1,
         yoyo: true,
+        type: "rotational",
       });
     },
   },

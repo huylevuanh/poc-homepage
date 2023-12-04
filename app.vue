@@ -75,10 +75,11 @@ export default {
   mounted: function () {
     this.scrollAnimation();
     ScrollSmoother.create({
-      smooth: 2,
+      smooth: 1,
       effects: true,
       ease: "power1.easeInOut",
-      normalizeScroll: true,
+      smoothTouch: 0.1,
+      ignoreMobileResize: true,
     });
   },
   data() {
@@ -98,24 +99,21 @@ export default {
           reduceMotion: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
-          const {
-            isDesktop,
-            isMobile: MMIsMobile,
-            reduceMotion,
-          } = context.conditions;
+          const { isDesktop } = context.conditions;
 
           gsap
             .timeline({
               scrollTrigger: {
+                pinType: "transform",
                 trigger: ".home-container",
                 start: "bottom bottom",
                 end: () =>
                   isDesktop
-                    ? `${window.innerHeight * 10}`
+                    ? `${window.innerHeight * 7}`
                     : `${window.innerHeight * 14}`,
                 pin: true,
                 scrub: 1,
-                anticipatePin: true,
+                anticipatePin: 1,
                 invalidateOnRefresh: true,
                 ease: "expo.out",
               },
@@ -139,7 +137,7 @@ export default {
               {
                 transform: "translate(20%, -40%) rotate(10deg)",
               },
-              "<-0.5"
+              "-=1"
             )
             .to(".title-container", {
               opacity: 0,
@@ -151,7 +149,7 @@ export default {
               { opacity: 0.2 }
             )
             .to(".text-intro-1 > span:nth-child(1)", {
-              fontSize: isDesktop ? 96 : 32,
+              scale: isDesktop ? "+=2" : 0,
               opacity: 1,
             })
             .to(
@@ -160,7 +158,7 @@ export default {
                 transform: "translate(-50%, -40%) rotate(0deg)",
                 duration: 1,
               },
-              "<"
+              "-=1"
             )
             .to(".text-intro-1 > span:nth-child(1)", {
               opacity: 0,
@@ -180,7 +178,7 @@ export default {
               display: "block",
               opacity: 1,
               translateY: -20,
-              fontSize: isDesktop ? 96 : 32,
+              scale: isDesktop ? "+=0.5" : 0,
             })
 
             .to(".bubble-step1-container", {
@@ -238,11 +236,15 @@ export default {
             )
             .to(".bubble-step3-container", { opacity: 0 })
             .to(".bubble-step4-container", { opacity: 1 }, "<")
-            .to(".text-intro-2 > span:nth-child(1)", {
-              opacity: 0,
-              display: "none",
-              translateY: -20,
-            })
+            .to(
+              ".text-intro-2 > span:nth-child(1)",
+              {
+                opacity: 0,
+                display: "none",
+                translateY: -20,
+              },
+              "+=0.5"
+            )
             .to(".text-intro-2 > span:nth-child(2)", {
               display: "block",
               opacity: 1,
@@ -293,7 +295,6 @@ export default {
   position: relative;
   justify-content: center;
   align-items: center;
-  will-change: transform;
   height: 100vh;
   width: 100vw;
 }

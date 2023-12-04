@@ -152,7 +152,7 @@ export default {
       gsap.to("#form04", {
         morphSVG: "#form03",
         ease: "sine.easeInOut",
-        duration: 2,
+        duration: 1,
         repeat: -1,
         yoyo: true,
       });

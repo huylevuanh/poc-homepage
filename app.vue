@@ -75,7 +75,7 @@ export default {
   mounted: function () {
     this.scrollAnimation();
     ScrollSmoother.create({
-      smooth: 1,
+      smooth: 2,
       effects: true,
       ease: "power1.easeInOut",
       smoothTouch: 0.1,
@@ -127,7 +127,7 @@ export default {
               {
                 transform: "scale(1.2)",
               },
-              "<"
+              ">"
             )
             .to(".video-background", {
               filter: "brightness(0.7)",
@@ -189,7 +189,7 @@ export default {
               {
                 opacity: 1,
               },
-              "<"
+              ">"
             )
 
             .to(".video-background", {
@@ -221,12 +221,13 @@ export default {
               {
                 opacity: 1,
               },
-              "<"
+              ">"
             )
             .fromTo(
               ".text-intro-2 > span:nth-child(1)",
               { opacity: 0 },
-              { opacity: 0.2 }
+              { opacity: 0.2 },
+              "<"
             )
             .to(".bubble-step3-container", { scale: 2 })
             .to(
@@ -243,7 +244,7 @@ export default {
                 display: "none",
                 translateY: -20,
               },
-              "+=0.5"
+              "+=1"
             )
             .to(".text-intro-2 > span:nth-child(2)", {
               display: "block",

@@ -18,72 +18,6 @@
       stroke="url(#paint0_radial_145_521)"
       style="mix-blend-mode: overlay"
     />
-    <defs>
-      <filter
-        id="filter0_ii_145_521"
-        x="-6.95723"
-        y="-6.65547"
-        width="894.935"
-        height="793.021"
-        filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
-      >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="BackgroundImageFix"
-          result="shape"
-        />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-          result="hardAlpha"
-        />
-        <feOffset dx="36.3779" dy="-7.27559" />
-        <feGaussianBlur stdDeviation="21.8268" />
-        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0.197917 0 0 0 0 0.334659 0 0 0 0 0.95 0 0 0 1 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="shape"
-          result="effect1_innerShadow_145_521"
-        />
-        <feColorMatrix
-          in="SourceAlpha"
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-          result="hardAlpha"
-        />
-        <feOffset dx="-7.27559" dy="7.27559" />
-        <feGaussianBlur stdDeviation="21.8268" />
-        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0.141176 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="effect1_innerShadow_145_521"
-          result="effect2_innerShadow_145_521"
-        />
-      </filter>
-      <radialGradient
-        id="paint0_radial_145_521"
-        cx="0"
-        cy="0"
-        r="1"
-        gradientUnits="userSpaceOnUse"
-        gradientTransform="translate(31.5 597) rotate(-29.8822) scale(854.044 539.778)"
-      >
-        <stop stop-color="white" stop-opacity="0.72" />
-        <stop offset="1" stop-color="white" stop-opacity="0" />
-      </radialGradient>
-    </defs>
 
     <g filter="url(#filter0_ii_145_629)">
       <path
@@ -96,6 +30,33 @@
     <path
       d="M701.052 754.171C681.625 761.872 662.689 770.665 643.917 779.531C641.496 780.675 639.078 781.819 636.661 782.963C620.339 790.689 604.111 798.371 587.743 805.345C550.163 821.356 511.895 833.614 470.231 834.057C382.665 834.989 298.011 807.782 225.071 759.292C146.037 706.752 78.1887 637.863 42.7708 549.888C3.98583 453.55 -16.2379 344.722 18.8252 247.101C54.313 148.297 136.346 70.0017 231.269 25.0231C275.291 4.1632 322.161 0.208385 370.262 1.74484C393.172 2.47666 416.351 4.45359 439.631 6.43925L443.109 6.73573C467.554 8.81751 492.1 10.841 516.528 11.3706C542.086 11.9248 567.915 10.7315 593.66 9.41066C595.783 9.3017 597.906 9.19187 600.029 9.08209C623.641 7.86065 647.158 6.64415 670.333 6.68013C720.848 6.75856 769.676 12.7896 814.162 37.6568C911.675 92.1668 986.401 185.512 1019.24 292.295C1052.88 401.663 1059.97 531.931 995.167 626.029C964.153 671.067 916.205 692.998 863.179 708.72C843.312 714.61 822.752 719.624 802.111 724.657C795.204 726.342 788.288 728.028 781.385 729.751C753.867 736.618 726.583 744.05 701.052 754.171Z"
       stroke="url(#paint0_radial_145_629)"
+      style="mix-blend-mode: overlay"
+    />
+
+    <g filter="url(#filter0_ii_1271_11435)">
+      <path
+        d="M661.945 88.2571C786.902 201.196 778.038 388.88 709.393 542.632C644.391 688.222 509.923 797.209 350.835 785.078C184.977 772.431 47.4616 651.263 10.0809 489.307C-27.6496 325.837 42.6413 157.185 185.61 69.2249C335.207 -22.8125 531.658 -29.4995 661.945 88.2571Z"
+        fill="black"
+        fill-opacity="0.48"
+        id="distort-1"
+      />
+    </g>
+
+    <g filter="url(#filter0_ii_145_959)">
+      <circle
+        cx="360"
+        cy="360"
+        r="360"
+        fill="black"
+        fill-opacity="0.12"
+        id="distort-2"
+      />
+    </g>
+    <circle
+      cx="360"
+      cy="360"
+      r="359.5"
+      stroke="url(#paint0_radial_145_959)"
       style="mix-blend-mode: overlay"
     />
 
@@ -180,13 +141,23 @@ export default {
   },
   methods: {
     distort() {
-      gsap.to("#form01", {
-        morphSVG: "#form02",
-        ease: "power1.easeOut",
-        duration: 1,
+      const tl = gsap.timeline({
         repeat: -1,
         yoyo: true,
-        type: "rotational",
+        defaults: { ease: "power1.out", duration: 2 },
+      });
+      gsap.to(".bubble-step-1", {
+        repeat: -1,
+        yoyo: true,
+        translate: "-10px 10px",
+        defaults: { ease: "power1.out", duration: 2 },
+      });
+      tl.to("#form01", {
+        keyframes: [
+          { morphSVG: "#form02", duration: 2 },
+          { morphSVG: "#distort-2", duration: 1.5 },
+          { morphSVG: "#distort-1", duration: 1.5 },
+        ],
       });
     },
   },
@@ -203,12 +174,14 @@ export default {
   border: unset;
   stroke-width: 0;
   background: transparent;
+  animation: floating 1s infinite ease-in-out;
 }
 
-#form02 {
+#form02,
+#distort-1,
+#distort-2 {
   visibility: hidden;
 }
-
 @media screen and (max-width: 768px) {
   .bubble-step-1 {
     width: 355px;

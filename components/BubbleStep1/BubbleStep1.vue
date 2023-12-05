@@ -154,8 +154,8 @@ export default {
       });
       tl.to("#form01", {
         keyframes: [
-          { morphSVG: "#form02", duration: 2 },
           { morphSVG: "#distort-2", duration: 1.5 },
+          { morphSVG: "#form02", duration: 2 },
           { morphSVG: "#distort-1", duration: 1.5 },
         ],
       });
